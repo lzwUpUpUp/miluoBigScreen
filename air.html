@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>大气环境数据可视化</title>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_234130_nem7eskcrkpdgqfr.css">
+    <link rel="stylesheet" href="./css/air.css">
+
+</head>
+
+<body>
+    <div class="stars"></div>
+    <!--背景层，不要删除，不然没有作用-->
+
+
+    <div class="topBox">
+        <div class="top">
+            <div class="leftLiner">
+                <img src="./img/move.png">
+            </div>
+            <div class="rightLiner">
+                <img src="./img/move.png">
+            </div>
+            <p class="topTitle">大气环境数据可视化</p>
+            <span id="topTime"></span>
+            <div id="topWeather">
+                <span class="weatherPic"></span>
+                <span class="weatherText"></span>
+                <span class="lightDegree"></span>
+                <span class="lightDegreeText"></span>
+                <span class="wineDirection"></span>
+                <span class="wineDirectionText"></span>
+                <span class="wineDegree"></span>
+                <span class="wineDegreeText"></span>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <!-- ----------左侧------------ -->
+
+        <div class="leftSide">
+            <div class="leftComment">
+                <div class="airQuality leftBox">
+                    <p class="shortTitle">空气质量实况</p>
+                    <div class="DetialBox">
+                        <p class="elementsText">
+                            <span style="width: 12%;text-align:right">AQI指数</span>
+                            <span class="releaseTime" style="width: 146px;text-align:center">
+                                    2019.11.28 04:06 发布
+                           </span>
+                            <span style="width: 10%;text-align:right">
+                               PM2.5
+                           </span>
+                            <span class="pollutionDegree" style="width: 12%;text-align:center">
+                                轻度污染
+                            </span>
+                            <span class="mianPollution" style="width: 82px;text-align:right">
+                                  首要污染物:
+                            </span>
+                            <span class="mianPollutionName" style="width: 84px;text-align:left">
+                                    SO2、CO
+                              </span>
+                        </p>
+                        <ul class="yuan">
+                            <li id="PM25Pic"></li>
+                            <li id="PM10Pic"></li>
+                            <li id="So2Pic"></li>
+                            <li id="No2Pic"></li>
+                            <li id="CoPic"></li>
+                            <li id="O3Pic"></li>
+                        </ul>
+                        <ul class="yuanText">
+                            <li>PM<sub>2.5</sub></li>
+                            <li>PM<sub>10</sub></li>
+                            <li>SO<sub>2</sub></li>
+                            <li>NO<sub>2</sub></li>
+                            <li>CO</li>
+                            <li>O<sub>3</sub></li>
+                        </ul>
+                        <!-- <div id="yuan "></div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="leftComment ">
+                <div class="AQIcalendar leftBox ">
+                    <p class="shortTitle ">AQI 日历</p>
+                    <div class="showDegree"></div>
+                    <div id="schedule-box" class="boxshaw"></div>
+
+                </div>
+            </div>
+            <div class="leftComment ">
+                <div class="AQIchange leftBox ">
+                    <p class="longTitle ">近七天全市AQI指数变化</p>
+                    <div class="AQIchangeBox">
+                        <p class="timeChoose" id="timeLeft">
+                            <span id="timeSelect">天</span>&nbsp;&nbsp;<span>月</span>
+                        </p>
+                        <p class="timeChoose" id="timeRight">
+                            <span>季</span>&nbsp;&nbsp;<span>年</span>
+                        </p>
+                        <div id="AQIchangePic"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="leftComment ">
+                <div class="airRank leftBox ">
+                    <p class="longTitle ">各区实时空气质量排名</p>
+                    <div class="airRankBox">
+                        <p class="zoneChoose">
+                            <span class="beenSelect">市</span>&nbsp;/&nbsp;<span>省</span>
+                        </p>
+                        <ul class="airRankBoxTitle">
+                            <li style="width: 6%;">排行</li>
+                            <li style="width: 12%;">城市</li>
+                            <li style="width: 10%">AQI浓度</li>
+                            <li style="width: 10%">PM₂.₅</li>
+                            <li style="width: 10%">PM₁₀</li>
+                            <li style="width: 8%">O₃</li>
+                            <li style="width: 8%;">NO₂</li>
+                            <li style="width: 8%;">SO₂</li>
+                            <li style="width: 8%">CO</li>
+                            <li style="width: 18%;">时间</li>
+                        </ul>
+                        <div id="airRankDetail">
+                            <ul class="airRankDetailText">
+
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- ----------中部------------ -->
+
+        <div class="middle ">
+            <div class="mapBox ">
+                <!-- 3D地球自转 -->
+                <div id="earth"></div>
+                <!-- 地图 -->
+                <div id="map"></div>
+                <!-- 地图选择 -->
+                <ul class="typeLibs">
+                    <li class="typeSelect">全部</li>
+                    <li>小微站</li>
+                    <li>污染源企业</li>
+
+                </ul>
+            </div>
+            <div class="middleBottm ">
+                <div class="airStation middleBox ">
+                    <p class="shortTitle ">空气小微站</p>
+                    <div class="airStationBox">
+                        <ul class="airStationTitle">
+                            <li style="width: 16%">站点名称</li>
+                            <li style="width: 8%">TSP</li>
+                            <li style="width: 8%">PM₂.₅</li>
+                            <li style="width: 10%">PM₁₀</li>
+                            <li style="width: 10%">噪声</li>
+                            <li style="width: 8%">湿度</li>
+                            <li style="width: 10%">温度</li>
+                            <li style="width: 10%">气压</li>
+                            <li style="width: 8%">风速</li>
+                            <li style="width: 10%">风向</li>
+                        </ul>
+                        <div id="airStationDetail">
+                            <ul class="airStationDetailText">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="pollutionOnline middleBox ">
+                    <p class="shortTitle ">污染源在线</p>
+                    <div class="pollutionBox">
+                        <ul class="pollutionTitle">
+                            <li style="width: 11%;">在线名称</li>
+                            <li style="width: 10%;" title="NO₂(mg/m³)">NO₂(mg/m³)</li>
+                            <li style="width: 10%;" title="SO₂(μg/m³)">SO₂(μg/m³)</li>
+                            <li style="width: 13.5%;" title="氧气含量(%)">氧气含量(%)</li>
+                            <li style="width: 13%;" title="烟气流速(m/s)">烟气流速(m/s)</li>
+                            <li style="width: 12%;" title="烟气温度(℃)">烟气温度(℃)</li>
+                            <li style="width: 12%;" title="烟气压力(kPa)">烟气压力(kPa)</li>
+                            <li style="width: 14%;" title="废气(mg/m³)">废气(mg/m³)</li>
+                        </ul>
+                        <div id="pollutionDetail">
+                            <ul class="pollutionDetailText">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ----------右侧------------ -->
+        <div class="rightSide ">
+            <div class="rirhtComment ">
+                <div class="excellentRate rightBox ">
+                    <p class="longTitle ">本年优良率与去年同期对比</p>
+                    <div id="excellentRate"></div>
+                </div>
+            </div>
+            <div class="rirhtComment ">
+                <div class="analysis rightBox ">
+                    <p class="longTitle ">最近24小时的质透分析</p>
+                    <div id="thorough-analyze"></div>
+                </div>
+            </div>
+            <div class="rirhtComment ">
+                <div class="lastAirQuality rightBox ">
+                    <p class="longTitle ">过去12个月空气质量图</p>
+                    <div id="lastQuality"></div>
+                </div>
+            </div>
+            <div class="rirhtComment ">
+                <div class="airForecast rightBox ">
+                    <p class="longTitle ">未来5天空气质量预报</p>
+                    <ul class="weatherForecast">
+                        <li>
+                            <!-- <p class="singleDay">28日星期天</p>
+                            <p class="singleText">(今天)</p>
+                            <p class="singleweatherPic"></p>
+                            <p class="tempInterval">21℃~31℃</p>
+                            <p class="singleWine">西北风 3级</p>
+                            <p class="singlrWeatherType">中雨</p> -->
+                        </li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script src="https://webapi.amap.com/maps?v=1.4.15&key=c6662a650892565d904b1b7d3b2f01c9&plugin=Map3D,AMap.DistrictLayer,AMap.Scale,AMap.ToolBar"></script>
+<script src="./js/jquery-3.1.1.min.js "></script>
+<script src="./js/url.js "></script>
+<script src="./js/echarts.min.js "></script> 
+<script src="./js/air.js "></script>
+<script src="./js/common.js"></script>
+<!--日历 -->
+<script src="./js/calender.js"></script>
+
+
+
+
+
+<!-- 日历的一部分js -->
+<script>
+    var myDate = new Date();
+    var sYear = myDate.getFullYear();
+    var sMonth = formatTime(myDate.getMonth() + 1);
+    var sDate = myDate.getDate();
+    var nowDate = sYear + '-' + sMonth + '-' + sDate
+
+    function formatTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }                                                                                                                                         
+        return i;
+    }
+
+    var queryTime = sYear + '-' + sMonth
+
+
+    var excellantLibs = [] //优秀集合
+    var fineLibs = [] //良好集合
+    var mildLibs = [] //轻度污染集合
+    var mediumLibs = [] //中度污染集合
+    var severityLibs = [] //重度污染集合
+    var seriousLibs = [] //严重污染集合
+
+
+
+    function scheduleMsg(time) {
+        $.ajax({
+            // url: 'http://192.168.2.55:8885/envAutoAir/monthAqi',
+            url: url + '/envAutoAir/monthAqi',
+            type: 'get',
+            data: 'queryTime=' + time,
+            success: function(res) {
+                for (var key in res) {
+                    if (res[key] < 50) {
+                        excellantLibs.push(key)
+                    } else if (51 < res[key] < 100) {
+                        fineLibs.push(key)
+                    } else if (101 < res[key] < 150) {
+                        mildLibs.push(key)
+                    } else if (151 < res[key] < 200) {
+                        mediumLibs.push(key)
+                    } else if (201 < res[key] < 300) {
+                        severityLibs.push(key)
+                    } else if (301 < res[key]) {
+                        seriousLibs.push(key)
+                    }
+                }
+
+                var mySchedule = new Schedule({
+                    el: '#schedule-box', //容器元素
+                    date: time, //当前日期		
+                    // disabledBefore: '2018-07-10',	//禁用此日期之前
+                    // disabledAfter: '2018-11-15',	//禁用此日期之后
+                    // disabledDate: ['2018-8-20', '2018-8-2', '2018-8-23'], //禁用的日期
+                    excellant: excellantLibs, //优秀日期
+                    fine: fineLibs, //良好日期	
+                    mild: mildLibs, //轻度污染日期	
+                    medium: mildLibs, //中度度污染日期	
+                    severity: severityLibs, //重度污染日期
+                    serious: seriousLibs, //严重污染日期
+                    // selectedDate: ["2020-02-01", "2020-02-02", "2020-01-01"], //选中的日期	
+
+                    showToday: true, //回到今天
+                    clickCb: function(date) {
+                        document.querySelector('#h3Ele').innerHTML = '日期：' + date
+                    },
+                    nextMonthCb: function(currentYear, currentMonth) {
+                        // console.log('currentYear:' + currentYear, 'currentMonth:' + currentMonth)
+                    },
+                    nextYeayCb: function(currentYear, currentMonth) {
+                        // console.log('currentYear:' + currentYear, 'currentMonth:' + currentMonth)
+
+                    },
+                    prevMonthCb: function(currentYear, currentMonth) {
+                        // console.log('currentYear:' + currentYear, 'currentMonth:' + currentMonth)
+                    },
+                    prevYearCb: function(currentYear, currentMonth) {
+                        // console.log('currentYear:' + currentYear, 'currentMonth:' + currentMonth)
+                    }
+                });
+            }
+        })
+
+        // excellantLibs = [] //优秀集合
+        // fineLibs = [] //良好集合
+        // mildLibs = [] //轻度污染集合
+        // mediumLibs = [] //中度污染集合
+        // severityLibs = [] //重度污染集合
+        // seriousLibs = [] //严重污染集合
+    }
+    scheduleMsg(queryTime)
+
+    //动态获取生成的元素
+    $("#schedule-box").on('click', '#nextMonth', function() {
+        setTimeout(() => {
+            scheduleMsg($('.today').html());
+        }, 0);
+    });
+    $("#schedule-box").on('click', '#prevMonth', function() {
+        setTimeout(() => {
+            scheduleMsg($('.today').html());
+        }, 0);
+    });
+    $("#schedule-box").on('click', '#nextYear', function() {
+        setTimeout(() => {
+            scheduleMsg($('.today').html());
+        }, 0);
+    });
+    $("#schedule-box").on('click', '#prevYear', function() {
+        setTimeout(() => {
+            scheduleMsg($('.today').html());
+        }, 0);
+    });
+
+
+
+
+
+    // ----------头部右侧天气信息的方法回调------
+    function handleResponse(res) {
+        $('.wineDirectionText').html(res.data.forecast[0].fengxiang) //风向
+        $('.weatherText').html(res.data.forecast[0].type) //天气
+        if (res.data.forecast[0].type == '晴') {
+            $('.weatherPic').attr('id', 'sun')
+        } else if (res.data.forecast[0].type.indexOf('雨') > 0) {
+            $('.weatherPic').attr('id', 'xiayu')
+        } else if (res.data.forecast[0].type.indexOf('云') > 0) {
+            $('.weatherPic').attr('id', 'duoYun')
+        } else if (res.data.forecast[0].type.indexOf('雪') > 0) {
+            $('.weatherPic').attr('id', 'xue')
+        } else if (res.data.forecast[0].type == '阴') {
+            $('.weatherPic').attr('id', 'yintian')
+        }
+
+        var hight = res.data.forecast[0].high.split(' ')[1] //最高温
+        var low = res.data.forecast[0].low.split(' ')[1] //最低温
+        $('.lightDegreeText').html(low + '~' + hight)
+
+        var wineDegree = res.data.forecast[0].fengli.replace(/[^0-9]/ig, ""); //使用正则提取数字
+        $('.wineDegreeText').html(wineDegree + '级')
+
+        weatherForecast(res)
+    }
+
+    function weatherForecast(res) {
+        for (var i = 0; i < res.data.forecast.length; i++) {
+            res.data.forecast[i].degree = res.data.forecast[i].fengli.slice(9, 11)
+            res.data.forecast[i].temp = res.data.forecast[i].low.split(' ')[1] + '~' + res.data.forecast[i].high.split(' ')[1]
+            if (res.data.forecast[i].type == '晴') {
+                res.data.forecast[i].pic = "singleSun"
+            } else if (res.data.forecast[i].type.indexOf('雨') > 0) {
+                res.data.forecast[i].pic = "singleXiayu"
+            } else if (res.data.forecast[i].type.indexOf('云') > 0) {
+                res.data.forecast[i].pic = "singleDuoYun"
+            } else if (res.data.forecast[i].type.indexOf('雪') > 0) {
+                res.data.forecast[i].pic = "singleXue"
+            } else if (res.data.forecast[i].type == '阴') {
+                res.data.forecast[i].pic = "singleYintian"
+            }
+            res.data.forecast[i].text = ''
+            res.data.forecast[0].text = '今天'
+            res.data.forecast[1].text = '明天'
+        }
+
+        // for (var i = 0; i < 2; i++) {
+        //     res.data.forecast[0].text = '今天'
+        //     res.data.forecast[1].text = '明天'
+
+        // }
+        weatherDrawing(res.data.forecast)
+    }
+
+    function weatherDrawing(res) {
+        var SourceLineHtml = res.map(function(item) {
+            return `
+            <li>
+                <p class="singleDay">${item.date}</p>
+                 <p class="singleText">${item.text}</p>
+                 <p class="singleweatherPic" id = '${item.pic}'></p>
+                 <p class="tempInterval">${item.temp}</p>
+                 <p class="singleWine">${item.fengxiang} ${item.degree}</p>
+                 <p class="singlrWeatherType">${item.type}</p>
+        </li>
+            `
+        }).join('');
+
+        document.querySelector('.weatherForecast').innerHTML = SourceLineHtml
+
+    }
+</script>
+
+<!-- 中间那个地球要用到的js -->
+<!-- <script src="./js/echarts-gl.js"></script>
+<script src="./js/china.js"></script>
+<script src="./js/earth.js"></script> -->
+
+
+
+</html>

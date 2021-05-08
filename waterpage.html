@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>水生态环境数据可视化</title>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_234130_nem7eskcrkpdgqfr.css">
+    <link rel="stylesheet" href="./css/waterPage.css">
+
+</head>
+
+<body>
+    <div class="stars"></div>
+    <!--背景层，不要删除，不然没有作用-->
+
+
+    <div class="topBox">
+        <div class="top">
+            <div class="leftLiner">
+                <img src="./img/move.png">
+            </div>
+            <div class="rightLiner">
+                <img src="./img/move.png">
+            </div>
+            <p class="topTitle">水环数据可视化</p>
+            <span id="topTime"></span>
+            <div id="topWeather">
+                <span class="weatherPic"></span>
+                <span class="weatherText"></span>
+                <span class="lightDegree"></span>
+                <span class="lightDegreeText"></span>
+                <span class="wineDirection"></span>
+                <span class="wineDirectionText"></span>
+                <span class="wineDegree"></span>
+                <span class="wineDegreeText"></span>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <!-- ----------左侧------------ -->
+
+        <div class="leftSide">
+            <div class="leftComment">
+                <div class="airQuality leftBox">
+                    <p class="shortTitle">水质环境实时</p>
+                    <div class="DetialBox">
+                        <p class="subHead">罗江镇水质自动站</p>
+                        <ul class="yuan">
+                            <li id="WaterPic"></li>
+                            <li id="TurbidPic"></li>
+                            <li id="ConductPic"></li>
+                            <li id="CODPic"></li>
+                            <li id="LeadPic"></li>
+                            <li id="DOPic"></li>
+                            <li id="PHPic"></li>
+                            <li id="ARSPic"></li>
+                        </ul>
+                        <ul class="yuanText">
+                            <li>水温</li>
+                            <li>浊度</li>
+                            <li>电导率</li>
+                            <li>CODMn</li>
+                            <li>铅</li>
+                            <li>溶解氧</li>
+                            <li>PH</li>
+                            <li>砷</li>
+
+                        </ul>
+                        <!-- <div id="yuan "></div> -->
+                        <ul class="yuan">
+                            <li id="ANPic"></li>
+                            <li id="toxicityPic"></li>
+                            <li id="PhosphorusPic"></li>
+                            <li id="ChromePic"></li>
+                            <li id="CadmiumPic"></li>
+                            <li id="PermanganatePic"></li>
+                            <li id="InTemperaturePic"></li>
+                            <li id="HumidityPic"></li>
+                        </ul>
+                        <ul class="yuanText">
+                            <li>氨氮</li>
+                            <li>综合毒性</li>
+                            <li>总磷</li>
+                            <li>总铬</li>
+                            <li>镉</li>
+                            <li title="高锰酸盐指数">高锰酸盐指数</li>
+                            <li>室温</li>
+                            <li>湿度</li>
+
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="leftComment ">
+                <div class="AQIcalendar leftBox ">
+                    <p class="shortTitle ">水质类别/日历</p>
+                    <div class="showDegree"></div>
+                    <div id="schedule-box" class="boxshaw"></div>
+
+                </div>
+            </div>
+            <div class="leftComment ">
+                <div class="AQIchange leftBox ">
+                    <p class="longTitle ">水质采集最近24小时数据</p>
+                    <div class="AQIchangeBox">
+
+                        <div id="AQIchangePic"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="leftComment ">
+                <div class="airRank leftBox ">
+                    <p class="longTitle ">水环境质量情况</p>
+
+                    <div class="airRankBox">
+                        <ul class="waterTitle">
+                            <li>考核断面达标率</li>
+                            <li>饮用水达标率</li>
+                            <li>河长制达标率</li>
+                        </ul>
+                        <div id="airRankPic"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- ----------中部------------ -->
+
+        <div class="middle ">
+            <div class="mapBox ">
+                <ul class="mapChoose">
+                    <li id="singleBtn">自动</li>
+                    <li>国控</li>
+                    <li>省控</li>
+                    <li>市控</li>
+                    <li>其他</li>
+                </ul>
+                <div id="map"></div>
+            </div>
+            <div class="middleBottm ">
+                <div class="airStation middleBox ">
+                    <p class="shortTitle ">环境污染在线</p>
+                    <div class="airStationBox">
+
+
+                        <div id="airStationDetail">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="pollutionOnline middleBox ">
+                    <p class="shortTitle ">环境污染在线</p>
+                    <div class="pollutionBox">
+                        <p class="EnvChooseRight" id="EnvChooseRight">
+                            <span id="timeSelect">进水口</span>
+                            <span>出水口</span>
+                        </p>
+                        <ul class="pollutionTitle">
+                            <li style="width: 17%;">在线名称</li>
+                            <li style="width: 8%;" title="PH">PH</li>
+                            <li style="width: 12%;" title="污水L/s">污水L/s</li>
+                            <li style="width: 9%;" title="总磷">总磷</li>
+                            <li style="width: 9%;" title="总氮">总氮</li>
+                            <li style="width: 9%;" title="COD">COD</li>
+                            <li style="width: 9%;" title="总铅">总铅</li>
+                            <li style="width: 9%;" title="总铜">总铜</li>
+                            <li style="width: 9%;" title="总砷">总砷</li>
+                            <li style="width: 7%;" title="总锌">总锌</li>
+                        </ul>
+                        <div id="pollutionDetail">
+                            <ul class="pollutionDetailText">
+                                <li>
+                                    <span style="width: 17%;">罗城路与土有限公司</span>
+                                    <span style="width: 8%;">7.549</span>
+                                    <span style="width: 12%;">1.586</span>
+                                    <span style="width: 9%;">11.00</span>
+                                    <span style="width: 9%;">61.20</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 7%;">22.7</span>
+                                </li>
+                                <li>
+                                    <span style="width: 17%;">汨罗市联创和有限公司</span>
+                                    <span style="width: 8%;">7.549</span>
+                                    <span style="width: 12%;">1.586</span>
+                                    <span style="width: 9%;">11.00</span>
+                                    <span style="width: 9%;">61.20</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 7%;">22.7</span>
+                                </li>
+                                <li>
+                                    <span style="width: 17%;">罗城路与土有限公司</span>
+                                    <span style="width: 8%;">7.549</span>
+                                    <span style="width: 12%;">1.586</span>
+                                    <span style="width: 9%;">11.00</span>
+                                    <span style="width: 9%;">61.20</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 7%;">22.7</span>
+                                </li>
+                                <li>
+                                    <span style="width: 17%;">汨罗市联创和有限公司</span>
+                                    <span style="width: 8%;">7.549</span>
+                                    <span style="width: 12%;">1.586</span>
+                                    <span style="width: 9%;">11.00</span>
+                                    <span style="width: 9%;">61.20</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 7%;">22.7</span>
+                                </li>
+                                <li>
+                                    <span style="width: 17%;">罗城路与土有限公司</span>
+                                    <span style="width: 8%;">7.549</span>
+                                    <span style="width: 12%;">1.586</span>
+                                    <span style="width: 9%;">11.00</span>
+                                    <span style="width: 9%;">61.20</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 7%;">22.7</span>
+                                </li>
+                                <li>
+                                    <span style="width: 17%;">汨罗市联创和有限公司</span>
+                                    <span style="width: 8%;">7.549</span>
+                                    <span style="width: 12%;">1.586</span>
+                                    <span style="width: 9%;">11.00</span>
+                                    <span style="width: 9%;">61.20</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 7%;">22.7</span>
+                                </li>
+                                <li>
+                                    <span style="width: 17%;">罗城路与土有限公司</span>
+                                    <span style="width: 8%;">7.549</span>
+                                    <span style="width: 12%;">1.586</span>
+                                    <span style="width: 9%;">11.00</span>
+                                    <span style="width: 9%;">61.20</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 7%;">22.7</span>
+                                </li>
+                                <li>
+                                    <span style="width: 17%;">汨罗市联创和有限公司</span>
+                                    <span style="width: 8%;">7.549</span>
+                                    <span style="width: 12%;">1.586</span>
+                                    <span style="width: 9%;">11.00</span>
+                                    <span style="width: 9%;">61.20</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 9%;">22.7</span>
+                                    <span style="width: 7%;">22.7</span>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ----------右侧------------ -->
+        <div class="rightSide ">
+            <div class="rirhtComment ">
+                <div class="excellentRate rightBox ">
+                    <p class="longTitle ">水质类别同年对比</p>
+
+                    <p class="timeChooseRight" id="timeChooseRight">
+                        <span id="timeSelect">月</span>
+                        <span>季</span>
+                        <span>年</span>
+                    </p>
+                    <div id="excellentRate">
+                    </div>
+                </div>
+            </div>
+            <div class="rirhtComment ">
+                <div class="analysis rightBox ">
+                    <p class="longTitle ">自动监测站实时联网情况</p>
+                    <div id="thorough-analyze"></div>
+                </div>
+            </div>
+            <div class="rirhtComment ">
+                <div class="lastAirQuality rightBox ">
+                    <p class="longTitle ">自动监测站数据上传率</p>
+                    <div id="lastQuality"></div>
+                </div>
+            </div>
+            <div class="rirhtComment ">
+                <div class="airForecast rightBox ">
+                    <p class="longTitle ">水质检测任务完成情况</p>
+                    <div class="waterQuality">
+                        <ul class="waterQualityTitle">
+                            <li style="width: 16%;" title="采样点">采样点</li>
+                            <li style="width: 16%;" title="类型">类型</li>
+                            <li style="width: 16%;" title="等级">等级</li>
+                            <li style="width: 16%;" title="应测">应测</li>
+                            <li style="width: 16%;" title="实测">实测</li>
+                            <li style="width: 16%;" title="是否完成">是否完成</li>
+                        </ul>
+                        <div id="waterQualityDetail">
+                            <ul class="waterQualityDetailText">
+                                <li>
+                                    <span style="width: 16%;">白塘镇</span>
+                                    <span style="width: 16%;">地表水</span>
+                                    <span style="width: 16%;">国控</span>
+                                    <span style="width: 16%;">17</span>
+                                    <span style="width: 16%;">17</span>
+                                    <span style="width: 16%;">17</span>
+                                </li>
+                                <li>
+                                    <span style="width: 16%;">白塘镇</span>
+                                    <span style="width: 16%;">地表水</span>
+                                    <span style="width: 16%;">国控</span>
+                                    <span style="width: 16%;">17</span>
+                                    <span style="width: 16%;">17</span>
+                                    <span style="width: 16%;">17</span>
+                                </li>
+                                <li>
+                                    <span style="width: 16%;">白塘镇</span>
+                                    <span style="width: 16%;">地表水</span>
+                                    <span style="width: 16%;">国控</span>
+                                    <span style="width: 16%;">17</span>
+                                    <span style="width: 16%;">17</span>
+                                    <span style="width: 16%;">17</span>
+                                </li>
+                                <li>
+                                    <span style="width: 16%;">白塘镇</span>
+                                    <span style="width: 16%;">地表水</span>
+                                    <span style="width: 16%;">国控</span>
+                                    <span style="width: 16%;">17</span>
+                                    <span style="width: 16%;">17</span>
+                                    <span style="width: 16%;">17</span>
+                                </li>
+                                <li>
+                                    <span style="width: 16%;">白塘镇</span>
+                                    <span style="width: 16%;">地表水</span>
+                                    <span style="width: 16%;">国控</span>
+                                    <span style="width: 16%;">17</span>
+                                    <span style="width: 16%;">17</span>
+                                    <span style="width: 16%;">17</span>
+                                </li>
+                                <li>
+                                    <span style="width: 16%;">白塘镇</span>
+                                    <span style="width: 16%;">地表水</span>
+                                    <span style="width: 16%;">国控</span>
+                                    <span style="width: 16%;">17</span>
+                                    <span style="width: 16%;">17</span>
+                                    <span style="width: 16%;">17</span>
+                                </li>
+                                <li>
+                                    <span style="width: 16%;">白塘镇</span>
+                                    <span style="width: 16%;">地表水</span>
+                                    <span style="width: 16%;">国控</span>
+                                    <span style="width: 16%;">17</span>
+                                    <span style="width: 16%;">17</span>
+                                    <span style="width: 16%;">17</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script src="https://webapi.amap.com/maps?v=1.4.15&key=c6662a650892565d904b1b7d3b2f01c9&plugin=Map3D,AMap.DistrictLayer,AMap.Scale,AMap.ToolBar"></script>
+
+<script src="./js/jquery-3.1.1.min.js "></script>
+<script src="./js/url.js "></script>
+<script src="./js/echarts.min.js "></script>
+<!-- 左下角水球图所需JS -->
+<script src="./js/echarts-liquidfill.min.js"></script>
+
+<script src="./js/waterPage.js "></script>
+<script src="./js/common.js"></script>
+<!--日历 -->
+<script src="./js/calender.js"></script>
+
+<!-- 日历的一部分js -->
+<script>
+    var myDate = new Date();
+    var sYear = myDate.getFullYear();
+    var sMonth = formatTime(myDate.getMonth() + 1);
+    var sDate = myDate.getDate();
+    var nowDate = sYear + '-' + sMonth + '-' + sDate
+
+    function formatTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
+    var queryTime = sYear + '-' + sMonth
+
+
+    var excellantLibs = [] //优秀集合
+    var fineLibs = [] //良好集合
+    var mildLibs = [] //轻度污染集合
+    var mediumLibs = [] //中度污染集合
+    var severityLibs = [] //重度污染集合
+    var seriousLibs = [] //严重污染集合
+
+
+
+    function scheduleMsg(time) {
+        $.ajax({
+            // url: 'http://192.168.2.55:8885/envAutoAir/monthAqi',
+            url: url + '/envAutoAir/monthAqi',
+            type: 'get',
+            data: 'queryTime=' + time,
+            success: function(res) {
+                for (var key in res) {
+                    if (res[key] < 50) {
+                        excellantLibs.push(key)
+                    } else if (51 < res[key] < 100) {
+                        fineLibs.push(key)
+                    } else if (101 < res[key] < 150) {
+                        mildLibs.push(key)
+                    } else if (151 < res[key] < 200) {
+                        mediumLibs.push(key)
+                    } else if (201 < res[key] < 300) {
+                        severityLibs.push(key)
+                    } else if (301 < res[key]) {
+                        seriousLibs.push(key)
+                    }
+                }
+
+
+                console.log('excellantLibs',excellantLibs);
+                console.log('fineLibs',fineLibs);
+                console.log('mildLibs',mildLibs);
+                console.log('mediumLibs',mediumLibs);
+                console.log('severityLibs',severityLibs);
+
+                var mySchedule = new Schedule({
+                    el: '#schedule-box', //容器元素
+                    date: time, //当前日期		
+                    // disabledBefore: '2018-07-10',	//禁用此日期之前
+                    // disabledAfter: '2018-11-15',	//禁用此日期之后
+                    // disabledDate: ['2018-8-20', '2018-8-2', '2018-8-23'], //禁用的日期
+                    excellant: excellantLibs, //优秀日期
+                    fine: fineLibs, //良好日期	
+                    mild: mildLibs, //轻度污染日期	
+                    medium: mildLibs, //中度度污染日期	
+                    severity: severityLibs, //重度污染日期
+                    serious: seriousLibs, //严重污染日期
+                    // selectedDate: ["2020-02-01", "2020-02-02", "2020-01-01"], //选中的日期	
+
+                    showToday: true, //回到今天
+                    clickCb: function(date) {
+                        document.querySelector('#h3Ele').innerHTML = '日期：' + date
+                    },
+                    nextMonthCb: function(currentYear, currentMonth) {
+                        // console.log('currentYear:' + currentYear, 'currentMonth:' + currentMonth)
+                    },
+                    nextYeayCb: function(currentYear, currentMonth) {
+                        // console.log('currentYear:' + currentYear, 'currentMonth:' + currentMonth)
+
+                    },
+                    prevMonthCb: function(currentYear, currentMonth) {
+                        // console.log('currentYear:' + currentYear, 'currentMonth:' + currentMonth)
+                    },
+                    prevYearCb: function(currentYear, currentMonth) {
+                        // console.log('currentYear:' + currentYear, 'currentMonth:' + currentMonth)
+                    }
+                });
+            }
+        })
+
+        // excellantLibs = [] //优秀集合
+        // fineLibs = [] //良好集合
+        // mildLibs = [] //轻度污染集合
+        // mediumLibs = [] //中度污染集合
+        // severityLibs = [] //重度污染集合
+        // seriousLibs = [] //严重污染集合
+    }
+    scheduleMsg(queryTime)
+
+    //动态获取生成的元素
+    $("#schedule-box").on('click', '#nextMonth', function() {
+        setTimeout(() => {
+            scheduleMsg($('.today').html());
+        }, 0);
+    });
+    $("#schedule-box").on('click', '#prevMonth', function() {
+        setTimeout(() => {
+            scheduleMsg($('.today').html());
+        }, 0);
+    });
+    $("#schedule-box").on('click', '#nextYear', function() {
+        setTimeout(() => {
+            scheduleMsg($('.today').html());
+        }, 0);
+    });
+    $("#schedule-box").on('click', '#prevYear', function() {
+        setTimeout(() => {
+            scheduleMsg($('.today').html());
+        }, 0);
+    });
+
+
+
+    // ----------头部右侧天气信息的方法回调------
+    function handleResponse(res) {
+
+        $('.wineDirectionText').html(res.data.forecast[0].fengxiang) //风向
+        $('.weatherText').html(res.data.forecast[0].type) //天气
+        if (res.data.forecast[0].type == '晴') {
+            $('.weatherPic').attr('id', 'sun')
+        } else if (res.data.forecast[0].type.indexOf('雨') > 0) {
+            $('.weatherPic').attr('id', 'xiayu')
+        } else if (res.data.forecast[0].type.indexOf('云') > 0) {
+            $('.weatherPic').attr('id', 'duoYun')
+        } else if (res.data.forecast[0].type.indexOf('雪') > 0) {
+            $('.weatherPic').attr('id', 'xue')
+        } else if (res.data.forecast[0].type == '阴') {
+            $('.weatherPic').attr('id', 'yintian')
+        }
+
+        var hight = res.data.forecast[0].high.split(' ')[1] //最高温
+        var low = res.data.forecast[0].low.split(' ')[1] //最低温
+        $('.lightDegreeText').html(low + '~' + hight)
+
+        var wineDegree = res.data.forecast[0].fengli.replace(/[^0-9]/ig, ""); //使用正则提取数字
+        $('.wineDegreeText').html(wineDegree + '级')
+
+    }
+</script>
+
+
+
+</html>

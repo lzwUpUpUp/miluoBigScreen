@@ -1,0 +1,822 @@
+* {
+    margin: 0;
+    padding: 0
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/contentBack.png');
+    background-size: 100% 100%;
+    overflow: hidden;
+}
+
+@font-face {
+    font-family: LEDFont;
+    src: url("./UnidreamLED.ttf");
+}
+
+.leftMenuAni {
+    animation: menushow 1.2s ease-out forwards;
+}
+
+@keyframes menushow {
+    from {
+        left: -100%;
+        opacity: 0;
+    }
+    to {
+        left: 0;
+        opacity: 1;
+    }
+}
+
+.rightMenuAni {
+    animation: Rmenushow 1.2s ease-out forwards;
+}
+
+@keyframes Rmenushow {
+    from {
+        right: -100%;
+        opacity: 0;
+    }
+    to {
+        right: 0;
+        opacity: 1;
+    }
+}
+
+
+/* ------------头部样式----------- */
+
+.topBox {
+    width: 100%;
+    height: 10%;
+    position: relative;
+}
+
+.top {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background-image: url('../img/topBack.png');
+    background-size: 100% 100%;
+    transition: all ease-out;
+}
+
+
+/* -----头部左侧运动光标--- */
+
+.leftLiner {
+    width: 600px;
+    height: 2px;
+    /* background-color: pink; */
+    z-index: 1000;
+    position: absolute;
+    top: 44.5%;
+    right: 60%;
+}
+
+.leftLiner img {
+    position: absolute;
+    offset-path: path('M599.500,0 L230.500,0 L56.500,0 L0.500,0.5');
+    animation: LRuning 3s linear infinite;
+}
+
+@keyframes LRuning {
+    0% {
+        opacity: 0;
+    }
+    10%,
+    80% {
+        opacity: 1;
+    }
+    100% {
+        offset-distance: 100%;
+        opacity: 0;
+    }
+}
+
+
+/* -----头部右侧运动光标--- */
+
+.rightLiner {
+    width: 600px;
+    height: 2px;
+    /* background-color: pink; */
+    z-index: 1000;
+    position: absolute;
+    top: 44.5%;
+    left: 60%;
+}
+
+.rightLiner img {
+    position: absolute;
+    offset-path: path('M0.500,0.5 L23.500,0 L256.500,0 L599.500,0');
+    animation: RRuning 3s linear infinite;
+}
+
+@keyframes RRuning {
+    0% {
+        opacity: 0;
+    }
+    10%,
+    80% {
+        opacity: 1;
+    }
+    100% {
+        offset-distance: 100%;
+        opacity: 0;
+    }
+}
+
+
+/* ---头部title---- */
+
+.topTitle {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    letter-spacing: 3px;
+    font-weight: 900;
+    color: #23EDFF
+}
+
+
+/* ---头部time---- */
+
+#topTime {
+    display: inline-block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 30px;
+    width: 200px;
+    padding-left: 20px;
+    color: #F3F7F8;
+    font-size: 18px;
+    padding-top: 2px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    /* 设置文字发光效果 */
+    text-shadow: 0 0 10px #2C6B7A, 0 0 20px #2C6B7A, 0 0 30px #2C6B7A, 0 0 40px #2C6B7A;
+    /* font-family: LEDFont */
+}
+
+
+/* ---头部天气---- */
+
+#topWeather {
+    display: inline-block;
+    height: 30px;
+    width: 400px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-weight: bold;
+    color: #F3F7F8;
+    /* background: pink; */
+    /* 设置文字发光效果 */
+    text-shadow: 0 0 10px #2C6B7A, 0 0 20px #2C6B7A, 0 0 30px #2C6B7A, 0 0 40px #2C6B7A;
+}
+
+#topWeather span {
+    float: left;
+}
+
+
+/* 太阳 */
+
+#sun {
+    background-image: url('../img/sunshine.png');
+    background-size: 100% 100%;
+    animation: rotating 6s infinite linear;
+}
+
+@keyframes rotating {
+    from {
+        transform: rotateZ(0deg);
+    }
+    to {
+        transform: rotateZ(360deg);
+    }
+}
+
+
+/* 下雨 */
+
+#xiayu {
+    background-image: url('../img/yutian.png');
+    background-size: 100% 100%;
+    position: relative;
+    top: 2px;
+    animation: fluctuate 3s infinite linear;
+}
+
+
+/* 雪 */
+
+#xue {
+    background-image: url('../img/xue.png');
+    background-size: 100% 100%;
+    position: relative;
+    top: 2px;
+    animation: fluctuate 3s infinite linear;
+}
+
+
+/* 阴天 */
+
+#yintian {
+    background-image: url('../img/yintian.png');
+    background-size: 100% 100%;
+    position: relative;
+    top: 2px;
+    animation: fluctuate 3s infinite linear;
+}
+
+
+/*多云 */
+
+#duoYun {
+    background-image: url('../img/duoyun.png');
+    background-size: 100% 100%;
+    position: relative;
+    top: 2px;
+    animation: fluctuate 3s infinite linear;
+}
+
+@keyframes fluctuate {
+    0% {
+        transform: translateY(-6px);
+    }
+    50% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(-6px);
+    }
+}
+
+.weatherPic {
+    height: 28px;
+    width: 28px;
+    display: inline-block;
+    /* background: pink; */
+}
+
+.weatherText {
+    width: 40px;
+    height: 28px;
+    display: inline-block;
+    line-height: 28px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+
+/* 光照强度 */
+
+.lightDegree {
+    width: 28px;
+    height: 30px;
+    display: inline-block;
+    background-image: url('../img/light.png');
+    background-size: 100% 114%;
+    animation: lightChange 3s infinite ease-out;
+}
+
+@keyframes lightChange {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.lightDegreeText {
+    width: 90px;
+    height: 28px;
+    display: inline-block;
+    line-height: 28px;
+    margin-right: 10px;
+}
+
+
+/* 风向 */
+
+.wineDirection {
+    height: 28px;
+    width: 30px;
+    display: inline-block;
+    background-image: url('../img/wine.png');
+    background-size: 100% 114%;
+    animation: wineYaobai 3s infinite linear;
+}
+
+@keyframes wineYaobai {
+    0% {
+        transform: rotateZ(0deg);
+    }
+    25% {
+        transform: rotateZ(20deg);
+    }
+    75% {
+        transform: rotateZ(-20deg);
+    }
+    100% {
+        transform: rotateZ(0deg);
+    }
+}
+
+.wineDirectionText {
+    width: 58px;
+    height: 28px;
+    display: inline-block;
+    line-height: 28px;
+}
+
+.wineDegree {
+    width: 28px;
+    height: 30px;
+    display: inline-block;
+    background-image: url('../img/wineDegree.png');
+    background-size: 100% 114%;
+    animation: lightChange 3s infinite linear;
+}
+
+.wineDegreeText {
+    width: 58px;
+    height: 28px;
+    display: inline-block;
+    line-height: 28px;
+}
+
+
+/* ---------------主要内容css------------- */
+
+.content {
+    width: 100%;
+    height: 90%;
+}
+
+
+/* --------------左侧css-------------- */
+
+.content .leftSide {
+    float: left;
+    width: 33.3%;
+    height: 100%;
+    position: relative;
+}
+
+.content .leftSide .leftComment {
+    width: 100%;
+    height: 25%;
+    position: relative;
+}
+
+
+/* -------企业类型数量统计----- */
+
+.airQuality {
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/boxBack.png');
+    background-size: 100% 100%;
+    position: absolute;
+    left: -100%;
+    transition: all ease-out;
+    opacity: 0;
+    padding: 1%;
+    box-sizing: border-box;
+}
+
+.shortTitle {
+    width: 42%;
+    height: 16%;
+    margin: 0 auto;
+    background-image: url('../img/shortPic.png');
+    background-size: 100% 100%;
+    color: #23EDFF;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+    font-family: MicrosoftYaHei-Bold;
+    justify-content: center;
+}
+
+#companyNum {
+    height: 84%;
+    width: 100%;
+}
+
+
+/* -------转移联单数量统计------*/
+
+.AQIcalendar {
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/boxBack.png');
+    background-size: 100% 100%;
+    position: absolute;
+    left: -100%;
+    transition: all ease-out;
+    opacity: 0;
+    padding: 1%;
+    box-sizing: border-box;
+}
+
+#transferNum {
+    height: 84%;
+    width: 100%;
+}
+
+
+/* 月 季选择 */
+
+
+/* .monthSeason {
+    position: absolute;
+    top: 4%;
+    right: 6%;
+}
+
+.monthSeason span {
+    display: inline-block;
+    width: 32px;
+    height: 18px;
+    color: #ffffff;
+    background-image: url('../img/normal.png');
+    background-size: 100% 100%;
+    font-size: 12px;
+    cursor: pointer;
+    line-height: 18px;
+    text-align: center;
+} */
+
+#timeSelect {
+    background-image: url('../img/timeSelect.png');
+    background-size: 100% 100%;
+}
+
+
+/* ------------国民经济分类------*/
+
+.AQIchange {
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/boxBack.png');
+    background-size: 100% 100%;
+    position: absolute;
+    left: -100%;
+    transition: all ease-out;
+    opacity: 0;
+    padding: 1%;
+    box-sizing: border-box;
+}
+
+.longTitle {
+    width: 42%;
+    height: 16%;
+    margin: 0 auto;
+    /* background-image: url('../img/rightCommentPic.png'); */
+    background-image: url('../img/shortPic.png');
+    background-size: 100% 100%;
+    color: #23EDFF;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+    font-family: MicrosoftYaHei-Bold;
+    justify-content: center;
+}
+
+#economic {
+    height: 84%;
+    width: 100%;
+}
+
+
+/*------------- 固体废物综合利用率--------- */
+
+.airRank {
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/boxBack.png');
+    background-size: 100% 100%;
+    position: absolute;
+    left: -100%;
+    transition: all ease-out;
+    opacity: 0;
+    padding: 1%;
+    box-sizing: border-box;
+}
+
+#solidUsing {
+    height: 84%;
+    width: 50%;
+    float: left;
+}
+
+#utilizationRate {
+    height: 84%;
+    width: 50%;
+    float: left;
+}
+
+
+/* --------------中部css-------------- */
+
+.content .middle {
+    float: left;
+    width: 33.3%;
+    height: 100%;
+    /* background: rgb(242, 255, 127); */
+}
+
+
+/* 地图父盒子 */
+
+.mapBox {
+    width: 100%;
+    height: 50%;
+    position: relative;
+}
+
+
+/* 月 季选择 */
+
+.place {
+    position: absolute;
+    top: 6%;
+    right: 6%;
+    z-index: 10000;
+}
+
+.place span {
+    display: inline-block;
+    width: 48px;
+    height: 18px;
+    color: #ffffff;
+    background-image: url('../img/normal.png');
+    background-size: 100% 100%;
+    font-size: 12px;
+    cursor: pointer;
+    line-height: 18px;
+    text-align: center;
+}
+
+#placeSelect {
+    background-image: url('../img/timeSelect.png');
+    background-size: 100% 100%;
+}
+
+
+/* 全国地图 */
+
+#map {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+}
+
+
+/* 湖南地图 */
+
+#hunanMap {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.middleBottm {
+    width: 100%;
+    height: 50%;
+    position: relative;
+}
+
+
+/* ----------一般固体统计情况- -------*/
+
+.airStation {
+    width: 100%;
+    height: 50%;
+    background-image: url('../img/boxBack.png');
+    background-size: 100% 100%;
+    position: absolute;
+    top: 80%;
+    transition: all ease-out;
+    opacity: 0;
+    padding: 1%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+#solidStatistics {
+    height: 84%;
+    width: 100%;
+}
+
+
+/* 月 季选择 */
+
+.solidTime {
+    position: absolute;
+    top: 6%;
+    right: 6%;
+}
+
+.solidTime span {
+    display: inline-block;
+    width: 32px;
+    height: 18px;
+    color: #ffffff;
+    background-image: url('../img/normal.png');
+    background-size: 100% 100%;
+    font-size: 12px;
+    cursor: pointer;
+    line-height: 18px;
+    text-align: center;
+}
+
+#timeSelect {
+    background-image: url('../img/timeSelect.png');
+    background-size: 100% 100%;
+}
+
+
+/* ----------危险废物统计情况---------- */
+
+.pollutionOnline {
+    width: 100%;
+    height: 50%;
+    background-image: url('../img/boxBack.png');
+    background-size: 100% 100%;
+    position: absolute;
+    top: 100%;
+    transition: all ease-out;
+    opacity: 0;
+    padding: 1%;
+    box-sizing: border-box;
+}
+
+#dangrousSolid {
+    height: 84%;
+    width: 100%;
+}
+
+
+/* -------------右侧css----------------- */
+
+.content .rightSide {
+    float: left;
+    width: 33.3%;
+    height: 100%;
+    /* background: rgb(65, 238, 88) */
+}
+
+.content .rightSide .rirhtComment {
+    width: 100%;
+    height: 25%;
+    position: relative;
+}
+
+#combinationType {
+    height: 84%;
+    width: 100%;
+}
+
+
+/* -----年度转移重量统计----- */
+
+.excellentRate {
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/boxBack.png');
+    background-size: 100% 100%;
+    position: absolute;
+    right: -100%;
+    transition: all ease-out;
+    opacity: 0;
+    padding: 1%;
+    box-sizing: border-box;
+}
+
+
+/* -----危废转移联单类型----- */
+
+.analysis {
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/boxBack.png');
+    background-size: 100% 100%;
+    position: absolute;
+    right: -100%;
+    transition: all ease-out;
+    opacity: 0;
+    padding: 1%;
+    box-sizing: border-box;
+}
+
+#weightTransfer {
+    height: 84%;
+    width: 100%;
+}
+
+
+/* -----危废产生单位统计----- */
+
+.lastAirQuality {
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/boxBack.png');
+    background-size: 100% 100%;
+    position: absolute;
+    right: -100%;
+    transition: all ease-out;
+    opacity: 0;
+    padding: 1%;
+    box-sizing: border-box;
+}
+
+#hazardousWaste {
+    height: 84%;
+    width: 100%;
+}
+
+.lastAirQuality ul {
+    height: 84%;
+    width: 100%;
+}
+
+.lastAirQuality ul li {
+    list-style: none;
+    float: left;
+    width: 33%;
+    height: 100%;
+}
+
+
+/* -----处置量统计----- */
+
+.airForecast {
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/boxBack.png');
+    background-size: 100% 100%;
+    position: absolute;
+    right: -100%;
+    transition: all ease-out;
+    opacity: 0;
+    padding: 1%;
+    box-sizing: border-box;
+}
+
+#DisposalInstallation {
+    height: 84%;
+    width: 50%;
+    float: left;
+}
+
+#hazardousWasteRate {
+    height: 84%;
+    width: 50%;
+    float: left;
+}
+
+.airForecast ul {
+    height: 84%;
+    width: 100%;
+}
+
+.airForecast ul li {
+    list-style: none;
+    float: left;
+    width: 24.5%;
+    height: 100%;
+}

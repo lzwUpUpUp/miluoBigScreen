@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>固体废物数据可视化</title>
+    <link rel="stylesheet" href="./css/solidWaste.css">
+
+</head>
+
+<body>
+    <div class="topBox">
+        <div class="top">
+            <div class="leftLiner">
+                <img src="./img/move.png">
+            </div>
+            <div class="rightLiner">
+                <img src="./img/move.png">
+            </div>
+            <p class="topTitle">固体废物数据可视化</p>
+            <span id="topTime"></span>
+            <div id="topWeather">
+                <span class="weatherPic"></span>
+                <span class="weatherText"></span>
+                <span class="lightDegree"></span>
+                <span class="lightDegreeText"></span>
+                <span class="wineDirection"></span>
+                <span class="wineDirectionText"></span>
+                <span class="wineDegree"></span>
+                <span class="wineDegreeText"></span>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <!-- ----------左侧------------ -->
+
+        <div class="leftSide">
+            <div class="leftComment">
+                <div class="airQuality leftBox">
+                    <p class="shortTitle">企业类型数量统计</p>
+                    <div id="companyNum"></div>
+                </div>
+            </div>
+            <div class="leftComment">
+                <div class="AQIcalendar leftBox">
+                    <p class="shortTitle">转移联单数量统计</p>
+
+                    <div id="transferNum"></div>
+                </div>
+            </div>
+            <div class="leftComment">
+                <div class="AQIchange leftBox">
+                    <p class="longTitle">国民经济分类</p>
+                    <div id="economic"></div>
+                </div>
+            </div>
+            <div class="leftComment">
+                <div class="airRank leftBox">
+                    <p class="longTitle">一般工业固体废物综合利用率</p>
+                    <!-- 产生量，贮存量，利用量 -->
+                    <div id="solidUsing"></div>
+                    <!-- 综合利用率%=利用量/产生量 -->
+                    <div id="utilizationRate"></div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- ----------中部------------ -->
+
+        <div class="middle">
+            <div class="mapBox">
+                <!-- 全国地图 -->
+                <div id='map' class="allMap"></div>
+                <!-- 湖南地图 -->
+                <div id="hunanMap" class="allMap"></div>
+                <p class="place">
+                    <span id="placeSelect">全国</span>
+                    <span>湖南省</span>
+                </p>
+            </div>
+            <div class="middleBottm">
+                <div class="airStation middleBox">
+                    <!-- <p class="solidTime">
+                        <span id="timeSelect">月</span>
+                        <span>季</span>
+                    </p> -->
+                    <p class="shortTitle">一般固体类别统计情况</p>
+                    <div id="solidStatistics"></div>
+                </div>
+                <div class="pollutionOnline middleBox">
+                    <p class="shortTitle">危险废物类别统计情况</p>
+                    <div id="dangrousSolid">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ----------右侧------------ -->
+        <div class="rightSide">
+            <div class="rirhtComment">
+                <div class="excellentRate rightBox">
+                    <p class="longTitle">年度转移重量统计</p>
+                    <div id="weightTransfer"></div>
+                </div>
+            </div>
+            <div class="rirhtComment">
+                <div class="analysis rightBox">
+                    <p class="longTitle">危废转移数量统计</p>
+                    <div id="combinationType">
+
+                    </div>
+                </div>
+            </div>
+            <div class="rirhtComment">
+                <div class="lastAirQuality rightBox">
+                    <p class="longTitle">产废数量规模统计</p>
+                    <div id="hazardousWaste"></div>
+                </div>
+            </div>
+            <div class="rirhtComment">
+                <div class="airForecast rightBox">
+                    <p class="longTitle">危险废物处置率</p>
+                    <!-- 为吸纳废物处置率 -->
+                    <div id="hazardousWasteRate"></div>
+                    <!-- 产生量 储存量 处置量 -->
+                    <div id="DisposalInstallation"></div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+
+<script src="./js/jquery-3.1.1.min.js"></script>
+<script src="./js/url.js"></script>
+<script src="./js/echarts.min.js"></script>
+<!-- 水球图所需的第三方脚本 -->
+<script src="./js/echarts-liquidfill.min.js"></script>
+
+<script src="./js/solidWaste.js"></script>
+<script src="./js/common.js"></script>
+
+
+
+<script>
+    // ----------头部右侧天气信息的方法回调------
+    function handleResponse(res) {
+
+        $('.wineDirectionText').html(res.data.forecast[0].fengxiang) //风向
+        $('.weatherText').html(res.data.forecast[0].type) //天气
+        if (res.data.forecast[0].type == '晴') {
+            $('.weatherPic').attr('id', 'sun')
+        } else if (res.data.forecast[0].type.indexOf('雨') > 0) {
+            $('.weatherPic').attr('id', 'xiayu')
+        } else if (res.data.forecast[0].type.indexOf('云') > 0) {
+            $('.weatherPic').attr('id', 'duoYun')
+        } else if (res.data.forecast[0].type.indexOf('雪') > 0) {
+            $('.weatherPic').attr('id', 'xue')
+        } else if (res.data.forecast[0].type == '阴') {
+            $('.weatherPic').attr('id', 'yintian')
+        }
+
+        var hight = res.data.forecast[0].high.split(' ')[1] //最高温
+        var low = res.data.forecast[0].low.split(' ')[1] //最低温
+        $('.lightDegreeText').html(low + '~' + hight)
+
+        var wineDegree = res.data.forecast[0].fengli.replace(/[^0-9]/ig, ""); //使用正则提取数字
+        $('.wineDegreeText').html(wineDegree + '级')
+
+    }
+</script>
+<!-- 中部中国地图所需链接 -->
+<script src="https://gallery.echartsjs.com/dep/echarts/latest/extension/bmap.min.js"></script>
+<script src="https://gallery.echartsjs.com/dep/echarts/map/js/china.js"></script>
+<script src="./js/coordinatefile.js"></script>
+<script>
+    // 中间地图
+
+    function theNational() {
+
+        $.ajax({
+            method: 'get',
+            url: url + '/wasteScreen/zoneInfo?year=2019',
+            success: function (res) {
+
+                var obj = {}
+                for (var i in CoordMap) {
+                    obj['province_' + i] = CoordMap[i]
+
+                }
+                for (var i in res) {
+                    if (res[i].city == '县') {
+                        var proName = res[i].province
+                        nationalDrawion(proName)
+                    } else if (res[i].city !== '县') {
+                        var cityName = res[i].city
+                        nationalDrawion(cityName)
+                    }
+                }
+
+                function nationalDrawion(name) {
+                    var citySeriesFirstLibs = []
+                    var cityLonlat = obj['province_' + name] ? obj['province_' + name] : ''
+                    var cityObjOne = {}
+                    cityObjOne['coord'] = [113.0692, 28.7993]
+                    cityObjOne['value'] = randomFrom(10, 100)
+                    var cityObjTwo = {}
+                    cityObjTwo['coord'] = cityLonlat
+                    citySeriesFirstLibs.push(cityObjOne, cityObjTwo)
+                    series[0].data.push(citySeriesFirstLibs) //series第一个数据
+                    // -----------------
+                    var citySecondObj = {}
+                    citySecondObj['name'] = name
+                    citySecondObj['value'] = cityLonlat.concat([cityObjOne.value])
+                    series[1].data.push(citySecondObj)
+                }
+
+                series[2].data = [{
+                    name: "汨罗市",
+                    value: [113.0692, 28.7993, 100]
+                }]
+                map.setOption(option, true);
+
+            }
+        })
+
+    }
+
+
+    //取乱之术
+    function randomFrom(lowerValue, upperValue) {
+        return Math.floor(Math.random() * (upperValue - lowerValue + 1) + lowerValue);
+    }
+
+    theNational()
+
+
+    var mapBox = document.getElementById('map')
+    var map = echarts.init(mapBox)
+
+    var BJData = [
+        // [{
+        //     name: '重庆市',
+        //     value: 100
+        // }, {
+        //     name: '岳阳市'
+        // }],
+        // [{
+        //     name: '广州市',
+        //     value: 70
+        // }, {
+        //     name: '岳阳市'
+        // }],
+        // [{
+        //     name: '哈尔滨市',
+        //     value: 30
+        // }, {
+        //     name: '岳阳市'
+        // }],
+        // [{
+        //     name: '青岛市',
+        //     value: 50
+        // }, {
+        //     name: '岳阳市'
+        // }],
+        // [{
+        //     name: '南昌市',
+        //     value: 20
+        // }, {
+        //     name: '岳阳市'
+        // }],
+        // [{
+        //     name: '银川市',
+        //     value: 10
+        // }, {
+        //     name: '岳阳市'
+        // }],
+        // [{
+        //     name: '拉萨市',
+        //     value: 80
+        // }, {
+        //     name: '岳阳市'
+        // }],
+        // [{
+        //     name: '西安市',
+        //     value: 55
+        // }, {
+        //     name: '岳阳市'
+        // }],
+        // [{
+        //     name: '乌鲁木齐',
+        //     value: 90
+        // }, {
+        //     name: '岳阳市'
+        // }]
+    ];
+    var convertData = function (data) {
+        var res = [];
+        for (var i = 0; i < data.length; i++) {
+            var dataItem = data[i];
+            var fromCoord = geoCoordMap[dataItem[1].name]; //箭头的起始位置
+            var toCoord = geoCoordMap[dataItem[0].name]; //箭头的终止位置
+            if (fromCoord && toCoord) {
+                res.push([{
+                    coord: fromCoord,
+                    value: dataItem[0].value
+                }, {
+                    coord: toCoord,
+                }]);
+            }
+        }
+        return res;
+    };
+
+    var color = ['#2ECDB8', '#a6c84c', '#ffa022', '#46bee9',];
+    var series = [];
+    [
+        ['岳阳市', BJData]
+    ].forEach(function (item, i) {
+        series.push(
+
+            {
+                type: 'lines',
+                zlevel: 3,
+                effect: {
+                    show: true,
+                    period: 4,
+                    trailLength: 0.02,
+                    symbol: 'arrow',
+                    symbolSize: 5,
+                },
+                lineStyle: {
+                    normal: {
+                        width: 1,
+                        opacity: 0.6,
+                        curveness: 0.2
+                    }
+                },
+
+                // data: convertData(item[1])
+                data: []
+            }, {
+            type: 'effectScatter',
+            coordinateSystem: 'geo',
+            zlevel: 2,
+            rippleEffect: {
+                period: 4,
+                brushType: 'stroke',
+                scale: 4
+            },
+            label: {
+                normal: {
+                    show: true,
+                    position: 'right',
+                    offset: [5, 0],
+                    formatter: '{b}'
+                },
+                emphasis: {
+                    show: true
+                }
+            },
+            symbol: 'circle',
+            symbolSize: function (val) {
+                return 4 + val[2] / 10;
+            },
+            itemStyle: {
+                normal: {
+                    show: false,
+                    color: '#f00'
+                }
+            },
+            // data: item[1].map(function(dataItem) {
+            //     return {
+            //         name: dataItem[0].name,
+            //         value: geoCoordMap[dataItem[0].name].concat([dataItem[0].value])
+            //     };
+            // }),
+            data: []
+        },
+            //被攻击点
+            {
+                type: 'scatter',
+                coordinateSystem: 'geo',
+                zlevel: 2,
+                rippleEffect: {
+                    period: 4,
+                    brushType: 'stroke',
+                    scale: 4
+                },
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'right',
+                        //			                offset:[5, 0],
+
+                        color: '#00ffff',
+                        formatter: '{b}',
+                        textStyle: {
+                            color: "#00ffff"
+                        }
+                    },
+                    emphasis: {
+                        show: true
+                    }
+                },
+                symbol: 'circle',
+                symbolSize: 10,
+                itemStyle: {
+                    normal: {
+                        show: true,
+                        color: '#9966cc'
+                    }
+                },
+                // data: [{
+                //     name: item[0],
+                //     value: geoCoordMap[item[0]].concat([100]),
+                // }],
+                data: []
+            }
+        );
+    });
+
+    option = {
+        visualMap: {
+            min: 0,
+            max: 100,
+            calculable: true,
+            color: ['#ff3333', 'orange', 'yellow', '#2ECDB8', '#2ecd36'],
+            textStyle: {
+                color: '#fff'
+            }
+        },
+        geo: {
+            map: 'china',
+            label: {
+                emphasis: {
+                    show: false
+                }
+            },
+            roam: true,
+            layoutCenter: ['50%', '53%'],
+            layoutSize: "108%",
+            itemStyle: {
+                normal: {
+                    color: 'rgba(51, 69, 89, .5)',
+                    borderColor: 'rgba(100,149,237,1)'
+                },
+                emphasis: {
+                    color: 'rgba(37, 43, 61, .5)'
+                }
+            }
+        },
+
+        series: series
+    };
+
+    // map.setOption(option, true);
+</script>
+
+<script src="./js/hunan.js"></script>
+<script>
+    function provinceDataGet() {
+        $.ajax({
+            method: 'get',
+            url: url + '/wasteScreen/zoneInfo?year=2019&province=湖南省',
+            success: function (res) {
+
+                var hunanObj = {}
+                for (var i in hunanMap) {
+                    hunanObj['province_' + i] = hunanMap[i]
+                }
+                for (var i in res) {
+                    var name = res[i].city
+                    hunanDrawion(name)
+                }
+
+                function hunanDrawion(name) {
+                    var hunanSeriesFirstLibs = []
+                    var hunanLonlat = hunanObj['province_' + name] ? hunanObj['province_' + name] : ''
+                    var hunanObjOne = {}
+                    hunanObjOne['coord'] = [113.0692, 28.7993]
+                    hunanObjOne['value'] = randomFrom(10, 100)
+                    var hunanObjTwo = {}
+                    hunanObjTwo['coord'] = hunanLonlat
+                    hunanSeriesFirstLibs.push(hunanObjOne, hunanObjTwo)
+                    hunanSeries[0].data.push(hunanSeriesFirstLibs) //series第一个数据
+                    // -----------------
+                    var citySecondObj = {}
+                    citySecondObj['name'] = name
+                    citySecondObj['value'] = hunanLonlat.concat([hunanObjOne.value])
+                    hunanSeries[1].data.push(citySecondObj)
+                }
+
+                hunanSeries[2].data = [{
+                    name: "汨罗市",
+                    value: [113.0692, 28.7993, 100]
+                }]
+                hunanMigration.setOption(hunanOption, true);
+
+            }
+        })
+
+    }
+
+    provinceDataGet()
+
+
+    var hunanBox = document.getElementById('hunanMap')
+    var hunanMigration = echarts.init(hunanBox)
+    var hunanMap = {
+        '长沙市': [113.00, 28.21],
+        '岳阳市': [113.0692, 28.7993],
+        '望城市': [112.80, 28.37],
+        '株洲市': [113.46, 27.43],
+        '湘潭市': [112.80, 27.67],
+        '衡阳市': [112.61, 26.89],
+        '邵阳市': [111.50, 27.22],
+        '岳阳市': [113.14, 29.18],
+        '临湘市': [113.42, 29.48],
+        '平江市': [113.56, 29.71],
+        '泪罗市': [113.05, 28.80],
+        '湘阴市': [112.87, 28.68],
+        '华容市': [112.55, 29.52],
+        '浏阳市': [113.63, 28.16],
+        '张家界市': [110.29, 29.40],
+        '常德市': [111.51, 29.20],
+        '吉首市': [109.63, 28.38],
+        '娄底市': [111.90, 27.73],
+        '益阳市': [112.20, 28.46],
+        '怀化市': [109.58, 27.33],
+        '郴州市': [113.02, 25.78],
+        '永州市': [111.62, 26.43],
+
+    };
+    var HNData = [
+        [{
+            name: '长沙',
+            value: 100
+        }, {
+            name: '岳阳'
+        }],
+        [{
+            name: '株洲',
+            value: 70
+        }, {
+            name: '岳阳'
+        }],
+        [{
+            name: '张家界',
+            value: 30
+        }, {
+            name: '岳阳'
+        }],
+        [{
+            name: '吉首',
+            value: 50
+        }, {
+            name: '岳阳'
+        }],
+        [{
+            name: '娄底',
+            value: 20
+        }, {
+            name: '岳阳'
+        }],
+        [{
+            name: '常德',
+            value: 10
+        }, {
+            name: '岳阳'
+        }],
+        [{
+            name: '衡阳',
+            value: 80
+        }, {
+            name: '岳阳'
+        }],
+        [{
+            name: '永州',
+            value: 55
+        }, {
+            name: '岳阳'
+        }],
+        [{
+            name: '郴州',
+            value: 90
+        }, {
+            name: '岳阳'
+        }],
+        [{
+            name: '怀化',
+            value: 90
+        }, {
+            name: '岳阳'
+        }],
+        [{
+            name: '益阳',
+            value: 90
+        }, {
+            name: '岳阳'
+        }],
+        [{
+            name: '邵阳',
+            value: 90
+        }, {
+            name: '岳阳'
+        }],
+        [{
+            name: '湘潭',
+            value: 90
+        }, {
+            name: '岳阳'
+        }]
+    ];
+    var hunanData = function (data) {
+        var res = [];
+        for (var i = 0; i < data.length; i++) {
+            var dataItem = data[i];
+            var fromCoord = hunanMap[dataItem[1].name]; //箭头的起始位置
+            var toCoord = hunanMap[dataItem[0].name]; //箭头的终止位置
+            if (fromCoord && toCoord) {
+                res.push([{
+                    coord: fromCoord,
+                    value: dataItem[0].value
+                }, {
+                    coord: toCoord,
+                }]);
+            }
+        }
+        return res;
+    };
+
+    var color = ['#a6c84c', '#ffa022', '#46bee9'];
+    var hunanSeries = [];
+    [
+        ['岳阳', HNData]
+    ].forEach(function (item, i) {
+        hunanSeries.push(
+
+            {
+                type: 'lines',
+                zlevel: 3,
+                effect: {
+                    show: true,
+                    period: 4,
+                    trailLength: 0.02,
+                    symbol: 'arrow',
+                    symbolSize: 5,
+                },
+                lineStyle: {
+                    normal: {
+                        width: 1,
+                        opacity: 0.6,
+                        curveness: 0.2
+                    }
+                },
+
+                // data: hunanData(item[1])
+                data: [],
+            }, {
+            type: 'effectScatter',
+            coordinateSystem: 'geo',
+            zlevel: 2,
+            rippleEffect: {
+                period: 4,
+                brushType: 'stroke',
+                scale: 4
+            },
+            label: {
+                normal: {
+                    show: true,
+                    position: 'right',
+                    offset: [5, 0],
+                    formatter: '{b}'
+                },
+                emphasis: {
+                    show: true
+                }
+            },
+            symbol: 'circle',
+            symbolSize: function (val) {
+                return 4 + val[2] / 10;
+            },
+            itemStyle: {
+                normal: {
+                    show: false,
+                    color: '#f00'
+                }
+            },
+            // data: item[1].map(function(dataItem) {
+            //     return {
+            //         name: dataItem[0].name,
+            //         value: hunanMap[dataItem[0].name].concat([dataItem[0].value])
+            //     };
+            // }),
+            data: [],
+
+        },
+            //被攻击点
+            {
+                type: 'scatter',
+                coordinateSystem: 'geo',
+                zlevel: 2,
+                rippleEffect: {
+                    period: 4,
+                    brushType: 'stroke',
+                    scale: 4
+                },
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'right',
+                        //			                offset:[5, 0],
+
+                        color: '#00ffff',
+                        formatter: '{b}',
+                        textStyle: {
+                            color: "#00ffff"
+                        }
+                    },
+                    emphasis: {
+                        show: true
+                    }
+                },
+                symbol: 'circle',
+                symbolSize: 10,
+                itemStyle: {
+                    normal: {
+                        show: true,
+                        color: '#9966cc'
+                    }
+                },
+                // data: [{
+                //     name: item[0],
+                //     value: hunanMap[item[0]].concat([100]),
+                // }],
+                data: [],
+
+            }
+        );
+    });
+
+    hunanOption = {
+        visualMap: {
+            min: 0,
+            max: 100,
+            calculable: true,
+            color: ['#f7af42', '#42f7ac', 'yellow', 'lime', 'aqua'],
+            textStyle: {
+                color: '#fff'
+            }
+        },
+        geo: {
+            map: '湖南',
+            label: {
+                emphasis: {
+                    show: false
+                }
+            },
+            roam: true,
+            layoutCenter: ['50%', '53%'],
+            layoutSize: "108%",
+            itemStyle: {
+                normal: {
+                    color: 'rgba(51, 69, 89, .5)',
+                    borderColor: 'rgba(100,149,237,1)'
+                },
+                emphasis: {
+                    color: 'rgba(37, 43, 61, .5)'
+                }
+            }
+        },
+
+        series: hunanSeries
+    };
+
+    //-------echart图例自适应js----------
+    // window.onresize = function () {
+    //     map.resize()
+    //     hunanMigration.resize()
+    // }
+</script>
+
+</html>
